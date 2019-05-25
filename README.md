@@ -1,6 +1,6 @@
-# flask-mysql-blueprints-marshmallow-sqlalchemy.
+# `flask` `mysql` `blueprints` `marshmallow` `sqlalchemy`.
 
-#####Scaffold of `Flask` `Mysql` `Blueprints` `Marshmallow` `SQLAlchemy` `flask cli`
+####Scaffold of `Flask` `Mysql` `Blueprints` `Marshmallow` `SQLAlchemy` `flask cli`
 
 ## Requirements
 ### Recommended editor:
