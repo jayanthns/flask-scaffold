@@ -10,11 +10,11 @@ def validate_required_string(field_value):
 
 class ArticleSchema(ma.Schema):
     # created_on = ma.Function(lambda obj: obj.created_on.strftime("%d-%m-%y"))
-    # updated_on = ma.Function(lambda obj: obj.updated_on.strftime("%d-%m-%y"))
+    # modified_on = ma.Function(lambda obj: obj.modified_on.strftime("%d-%m-%y"))
 
     class Meta:
         fields = ('id', 'name', 'author', 'description',
-                  'created_on', 'updated_on')
+                  'created_on', 'modified_on')
 
 
 article_schema = ArticleSchema()
