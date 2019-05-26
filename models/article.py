@@ -10,7 +10,6 @@ class Article(BaseModelMixin):
     name = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(250), nullable=True)
-    test = db.Column(db.String(100), nullable=True)
 
     def __repr__(self):
         return "<Article '{}'>".format(self.name)
