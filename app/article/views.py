@@ -46,12 +46,7 @@ def articles():
                 status=401
             )
 
-        article_data = article_data.data
-        article = Article(
-            name=article_data.get('name'),
-            author=article_data.get('author'),
-            description=article_data.get('description', '')
-        )
+        article = article_data.data
         article.save()
         article = article_schema.dump(article)
         return response(
@@ -61,7 +56,11 @@ def articles():
         )
 
 
-@article_api_blueprint.route("/<int:id>", methods=['GET', 'PUT'], strict_slashes=False)
+@article_api_blueprint.route(
+    "/<int:id>",
+    methods=['GET', 'PUT', 'DELETE'],
+    strict_slashes=False
+)
 def article_details(id):
     """Checking the article existence"""
     article = Article.query.get(id)
@@ -82,7 +81,11 @@ def article_details(id):
 
     """Updating the  article"""
     if request.method == "PUT":
-        article_serializer = article_update_schema.load(request.get_json() or {})
+        article_serializer = article_update_schema.load(
+            request.get_json() or {},
+            instance=article,
+            partial=True
+        )
         if article_serializer.errors:
             return response(
                 message="Incorrect data were provided.",
@@ -90,14 +93,18 @@ def article_details(id):
                 status=400
             )
 
-        article_data = article_serializer.data
-        article.name = article_data.get('name', article.name)
-        article.author = article_data.get('author', article.author)
-        article.description = article_data.get('description', article.description)
+        article = article_serializer.data
         article.save()
         article = article_schema.dump(article)
         return response(
-            message=F"Article {article.name} updated successfully.",
+            message=F"Article updated successfully.",
             data=article.data,
+            status=200
+        )
+
+    if request.method == 'DELETE':
+        article.delete()
+        return response(
+            message="Article deleted successfully.",
             status=200
         )
