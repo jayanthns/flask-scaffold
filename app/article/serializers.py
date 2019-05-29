@@ -1,6 +1,8 @@
-from extensions import ma
-from models.article import Article
 from marshmallow import ValidationError, validate
+
+from extensions import ma
+
+from models.article import Article
 
 
 def validate_required_string(field_value):

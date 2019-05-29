@@ -13,8 +13,10 @@ import logging.config
 
 # models import
 from models.article import *
+from models.user import *
 
 from app.article.views import article_api_blueprint
+from app.user_app.views import user_api_blueprint
 
 SETTINGS_FILE = os.environ.get("FLASK_ENV", "settings.dev_settings")
 
@@ -35,6 +37,7 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     # app.register_blueprint(public.views.blueprint)
     app.register_blueprint(article_api_blueprint, url_prefix="/api/articles")
+    app.register_blueprint(user_api_blueprint, url_prefix="/api/users")
     return app
 
 
