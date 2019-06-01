@@ -11,6 +11,7 @@ from app.user_app.serializers import (
     users_schema,
     user_login_schema
 )
+from app.user_app.backends import authenticate
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -53,3 +54,27 @@ def users():
             data=user.data,
             status=201
         )
+
+
+@user_api_blueprint.route("login/", methods=['POST'], strict_slashes=False)
+def login():
+    """View for login user"""
+    login_data = user_login_schema.load(request.get_json() or {})
+
+    if login_data.errors:
+        return response(
+            message="Incorrect data were provided",
+            data={**login_data.errors},
+            status=400
+        )
+    user = authenticate(**login_data.data)
+    if not user:
+        return response(
+            message="Invalid credentials.",
+            status=400
+        )
+
+    return response(
+        message="User logged in successfully.",
+        status=200
+    )
