@@ -7,7 +7,8 @@ from extensions import (
     bcrypt,
     db,
     migrate,
-    ma
+    ma,
+    jwt
 )
 import logging.config
 
@@ -28,6 +29,7 @@ def register_extensions(app):
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app, db)
+    jwt.init_app(app)
     # redis_store.init_app(app)
     logging.config.dictConfig(app.config["LOGGING"])
     return app

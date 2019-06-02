@@ -1,4 +1,5 @@
 import os
+import datetime
 from environs import Env
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -26,3 +27,15 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # WEBPACK_MANIFEST_PATH = 'webpack/manifest.json'
 # REDIS_URL = "redis://0.0.0.0:6379/0"
 # REDIS_URL = env.str('REDIS_URL', None)
+
+
+# JWT settings
+JWT_SECRET_KEY = SECRET_KEY
+JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=7)
+# JWT_ACCESS_COOKIE_PATH = "api/"
+JWT_TOKEN_LOCATION = ['cookies']
+JWT_ERROR_MESSAGE_KEY = "message"
+JWT_ACCESS_COOKIE_NAME = "x-access-token"
+JWT_HEADER_TYPE = "Bearer"
+JWT_BLACKLIST_ENABLED = True
+JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
