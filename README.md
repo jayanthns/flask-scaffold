@@ -1,10 +1,16 @@
-# `flask` `mysql` `blueprints` `marshmallow` `sqlalchemy`.
+# `flask` `mysql` `blueprints` `marshmallow` `sqlalchemy` `flask-jwt-extended`.
 
-####Scaffold of `Flask` `Mysql` `Blueprints` `Marshmallow` `SQLAlchemy` `flask cli`
+#### Scaffold of `Flask` `Mysql` `Blueprints` `Marshmallow` `SQLAlchemy` `flask cli` `flask-jwt-extended`
 
 ## Requirements
 ### Recommended editor:
 Download from this link ---> [Visual Studio Code](https://code.visualstudio.com/Download)
+### Reference Link
+Flask link ---> [Flask](http://flask.pocoo.org/)
+Marshmallow link ---> [Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/)
+SQLAlchemy link ---> [SQLAlchemy](https://www.sqlalchemy.org/)
+Flask SQLAlchemy link ---> [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/)
+flask-jwt-extended link ---> [flask-jwt-extended](https://flask-jwt-extended.readthedocs.io/en/latest/index.html)
 
 ### Prerequisite knowledge:
 `VS Code` `Python` `Flask` `Rest API` `MySQL` `marshmallow` `SQLAlchemy` `flask-jwt-extended`
