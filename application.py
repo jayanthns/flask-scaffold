@@ -7,14 +7,17 @@ from extensions import (
     bcrypt,
     db,
     migrate,
-    ma
+    ma,
+    jwt
 )
 import logging.config
 
 # models import
 from models.article import *
+from models.user import *
 
 from app.article.views import article_api_blueprint
+from app.user_app.views import user_api_blueprint
 
 SETTINGS_FILE = os.environ.get("FLASK_ENV", "settings.dev_settings")
 
@@ -26,6 +29,7 @@ def register_extensions(app):
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app, db)
+    jwt.init_app(app)
     # redis_store.init_app(app)
     logging.config.dictConfig(app.config["LOGGING"])
     return app
@@ -35,6 +39,7 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     # app.register_blueprint(public.views.blueprint)
     app.register_blueprint(article_api_blueprint, url_prefix="/api/articles")
+    app.register_blueprint(user_api_blueprint, url_prefix="/api/users")
     return app
 
 

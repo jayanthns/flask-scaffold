@@ -7,7 +7,7 @@
 Download from this link ---> [Visual Studio Code](https://code.visualstudio.com/Download)
 
 ### Prerequisite knowledge:
-`VS Code` `Python` `Flask` `Rest API` `MySQL` `marshmallow` `SQLAlchemy`
+`VS Code` `Python` `Flask` `Rest API` `MySQL` `marshmallow` `SQLAlchemy` `flask-jwt-extended`
 
 ### System requirements:
 * `Python 3.6+`
