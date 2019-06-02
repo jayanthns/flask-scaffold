@@ -1,10 +1,16 @@
 import logging
 
 from flask import Blueprint, request
+from flask_jwt_extended import (
+    create_access_token, jwt_required, get_jwt_identity, set_access_cookies,
+    unset_jwt_cookies, get_raw_jwt
+)
 
 from models.user import User
 
 from common.util.common_response import response
+from common.util.decorators import token_required, is_authenticated
+from common.util.jwt_token_helpers import blacklist
 
 from app.user_app.serializers import (
     user_schema,
@@ -56,6 +62,21 @@ def users():
         )
 
 
+@user_api_blueprint.route("details/", methods=['GET'], strict_slashes=False)
+@token_required
+@is_authenticated
+def user_details():
+    """get user details"""
+    log.info(request.user)
+    serializer = user_schema.dump(request.user)
+
+    return response(
+        data=serializer.data,
+        message="Data fetched successfully.",
+        status=200
+    )
+
+
 @user_api_blueprint.route("login/", methods=['POST'], strict_slashes=False)
 def login():
     """View for login user"""
@@ -74,7 +95,30 @@ def login():
             status=400
         )
 
-    return response(
+    user_data = user_schema.dump(user).data
+    payload = {
+        'email': user.email,
+        'id': user.id
+    }
+    access_token = create_access_token(identity=payload)
+
+    res, status_code = response(
+        data=user_data,
         message="User logged in successfully.",
         status=200
     )
+    set_access_cookies(res, access_token)
+    return res, status_code
+
+
+@user_api_blueprint.route("logout/", methods=['GET'], strict_slashes=False)
+@token_required
+def logout():
+    jti = get_raw_jwt()['jti']
+    blacklist.add(jti)
+    res, status_code = response(
+        message="Logged out successfully.",
+        status=200
+    )
+    unset_jwt_cookies(res)
+    return res, status_code
