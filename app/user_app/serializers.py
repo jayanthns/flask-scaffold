@@ -2,7 +2,7 @@ from marshmallow import ValidationError, validate
 
 from extensions import ma
 
-from models.user import User
+from models.user import User, Profile
 
 
 def validate_email(email):
@@ -15,14 +15,21 @@ def validate_email(email):
 #         raise ValidationError("Username is already exists.")
 
 
+class ProfileSchema(ma.ModelSchema):
+    class Meta:
+        model = Profile
+        fields = ('address1',)
+
+
 class UserSchema(ma.ModelSchema):
     email = ma.Email(required=True, validate=validate_email)
     password = ma.String(max_length=8, validate=validate.Length(
         min=6, max=10), required=True)
+    profile = ma.Nested(ProfileSchema)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'modified_on')
+        fields = ('id', 'username', 'email', 'password', 'modified_on', 'profile')
         load_only = ('password',)
         dump_only = ('id', 'modified_on')
 
